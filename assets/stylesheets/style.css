@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/poppins.woff2') format('woff2');
+}
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    margin-left: 1%;
+    margin-top: 1%;
+}
+
+.borderlessCard {
+    border-width: 0;
+}
+
+.formRow {
+    margin-bottom: 5%;
+}
+
+.errorCard {
+    background: indianred;
+}
+
+.successCard {
+    background: lightgreen;
+}
