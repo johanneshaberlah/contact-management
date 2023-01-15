@@ -14,10 +14,6 @@ require "Repository/PostgresContactRepository.php";
 
 final class ContactService {
     private const START_PAGE_CONTACT_LIST_SIZE = 5;
-    private const DAY_AND_MONTH_FORMAT = "d-m";
-    private const DAY_FORMAT_SYMBOL = "d";
-    private const MONTH_FORMAT_SYMBOL = "m";
-    private const YEAR_FORMAT_SYMBOL = "Y";
 
     private ContactRepository $repository;
 

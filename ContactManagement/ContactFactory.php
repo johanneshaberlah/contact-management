@@ -31,7 +31,7 @@ final class ContactFactory {
         $contactBuilder = ContactBuilder::fromName($name);
         if (isset($parameters[self::ID_PARAMETER])){
             $id = intval($parameters[self::ID_PARAMETER]);
-            $contactBuilder = $contactBuilder->withId($id);
+            $contactBuilder->withId($id);
         }
         if (isset($parameters[self::PHONE_PARAMETER])){
             $contactBuilder->withPhone($parameters[self::PHONE_PARAMETER]);

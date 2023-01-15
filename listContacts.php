@@ -23,7 +23,7 @@
             $('#example').DataTable({
                 "language": {
                     "lengthMenu": "Zeige _MENU_ Einträge pro Seite",
-                    "zeroRecords": "Es wurden keine Kontakte gefunden..",
+                    "zeroRecords": "Es wurden keine Kontakte gefunden.",
                     "info": "Seite _PAGE_ von _PAGES_",
                     "infoEmpty": "Zu deinem aktuellen Filter wurden keine Einträge gefunden.",
                     "infoFiltered": "",
@@ -50,28 +50,6 @@
                             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                         </svg>
                     </a>
-                </div>
-            </div>
-            <div class="row py-3">
-                <div class="col-lg-6 col-12">
-                    <div id="successCard" class="card successCard visually-hidden">
-                        <div class="card-body">
-                            <h5 class="card-title">Der Kontakt wurde angelegt!</h5>
-                            <p class="card-text">Der Kontakt wurde erfolgreich angelegt. Kehre nun zurück zur Startseite oder sehe dir die Detailseite an.</p>
-                        </div>
-                        <div class="card-footer">
-                            <a href="index.php" class="btn">Zurück zur Startseite</a>
-                            <a href="createOrEditContact.php?id=<?php if (isset($contact) && $contact != null) echo $contact->id()  ?>" class="btn">Zur Detailseite</a>
-                        </div>
-                    </div>
-                    <div id="errorCard" class="card errorCard visually-hidden">
-                        <div class="card-body">
-                            <h5 class="card-title">Der Kontakt konnte nicht angelegt werden!</h5>
-                            <p class="card-text">Fehlerbeschreibung:
-                                <span id="errorMessage"></span>
-                            </p>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="row py-3">
@@ -103,7 +81,6 @@
                         ?>
                         </tbody>
                     </table>
-
                 </div>
             </div>
             <div class="row py-5 pt-5">

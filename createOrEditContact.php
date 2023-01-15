@@ -86,7 +86,7 @@
                         <div class="card-body">
                             <div class="card-text">
                                 <form id="contactForm" action="createOrEditContact.php" method="POST">
-                                    <div class="form-group formRow">
+                                    <div class="form-group mb-4">
                                         <input type="hidden" name="id" value="<?php if (isset($_GET["id"])) echo $_GET["id"]; ?>">
                                         <label for="name">Name *</label>
                                         <input
@@ -96,7 +96,7 @@
 ´                                               name="name"
                                                 id="name" required>
                                     </div>
-                                    <div class="form-group formRow">
+                                    <div class="form-group  mb-4">
                                         <label for="phone">Telefonnummer</label>
                                         <input
                                                 type="tel"
@@ -105,7 +105,7 @@
                                                 name="phone"
                                                 id="phone">
                                     </div>
-                                    <div class="form-group formRow">
+                                    <div class="form-group  mb-4">
                                         <label for="mail">Email</label>
                                         <input
                                                 type="email"
@@ -114,7 +114,7 @@
 ´                                               name="mail"
                                                 id="mail">
                                     </div>
-                                    <div class="form-group formRow">
+                                    <div class="form-group  mb-4">
                                         <label for="birthday">Geburtstag</label>
                                         <input
                                                 type="date"

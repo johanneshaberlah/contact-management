@@ -51,7 +51,8 @@
                                     use ContactManagement\Failure\ContactCreationFailure;
 
                                     require "ContactManagement/ContactService.php";
-                                        $contactService = ContactService::create();
+                                    $contactService = ContactService::create();
+
                                     try {
                                         $contacts = $contactService->findAll();
                                         foreach ($contacts as $contact){

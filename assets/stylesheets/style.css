@@ -6,17 +6,8 @@
     font-family: 'Poppins', sans-serif;
 }
 
-body {
-    margin-left: 1%;
-    margin-top: 1%;
-}
-
 .borderlessCard {
     border-width: 0;
-}
-
-.formRow {
-    margin-bottom: 5%;
 }
 
 .errorCard {

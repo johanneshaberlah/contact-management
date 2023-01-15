@@ -21,7 +21,7 @@ final class PostgresContactRepository implements ContactRepository {
         $this->client->connect();
         $this->client->update(
             "CREATE TABLE IF NOT EXISTS contacts (id SERIAL PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255), mail VARCHAR(255), birthday DATE);");
-    }
+    } //TODO varchar kürzen
 
     /**
      * @throws ContactCreationFailure
