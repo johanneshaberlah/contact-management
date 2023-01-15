@@ -8,9 +8,9 @@ use ContactManagement\Repository\ContactRepository;
 use ContactManagement\Repository\PostgresContactRepository;
 use PDOException;
 
-require "Repository/ContactRepository.php";
-require "ContactFactory.php";
-require "Repository/PostgresContactRepository.php";
+require_once "Repository/ContactRepository.php";
+require_once "ContactFactory.php";
+require_once "Repository/PostgresContactRepository.php";
 
 final class ContactService {
     private const START_PAGE_CONTACT_LIST_SIZE = 5;
@@ -53,13 +53,7 @@ final class ContactService {
      */
     public function findAll(): array {
         return $this->repository->findAll();
-    }
-
-    /**
-     * @throws ContactCreationFailure
-     */
-    public function findAllForTeaser(): array {
-        return $this->repository->findAll(self::START_PAGE_CONTACT_LIST_SIZE);
+        // TODO: dynamic limit
     }
 
     public static function create(): ContactService {

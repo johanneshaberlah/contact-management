@@ -4,10 +4,10 @@ namespace ContactManagement;
 
 use ContactManagement\Failure\ContactCreationFailure;
 use DateTime;
-use Exception;
 
-require "ContactBuilder.php";
-require "Failure/ContactCreationFailure.php";
+require_once "ContactBuilder.php";
+require_once "PostgresTagRepository.php";
+require_once "Failure/ContactCreationFailure.php";
 
 final class ContactFactory {
     private const DATE_FORMAT = "Y-m-d";
@@ -16,6 +16,7 @@ final class ContactFactory {
     private const PHONE_PARAMETER = "phone";
     private const MAIL_PARAMETER = "mail";
     private const BIRTHDAY_PARAMETER = "birthday";
+    private const TAG_PARAMETER = "tag";
 
     /**
      * @param array $parameters
@@ -24,6 +25,8 @@ final class ContactFactory {
      * @throws ContactCreationFailure If values are missing or invalid
      */
     public static function fromParameters(array $parameters): Contact {
+        $tagRepository = PostgresTagRepository::create();
+
         $name = $parameters[self::NAME_PARAMETER];
         if ($name == null){
             throw ContactCreationFailure::create("Bitte einen Namen angeben.");
@@ -31,7 +34,7 @@ final class ContactFactory {
         $contactBuilder = ContactBuilder::fromName($name);
         if (isset($parameters[self::ID_PARAMETER])){
             $id = intval($parameters[self::ID_PARAMETER]);
-            $contactBuilder->withId($id);
+            $contactBuilder = $contactBuilder->withId($id);
         }
         if (isset($parameters[self::PHONE_PARAMETER])){
             $contactBuilder->withPhone($parameters[self::PHONE_PARAMETER]);
@@ -45,6 +48,9 @@ final class ContactFactory {
                 throw ContactCreationFailure::create("Bitte ein gültiges Datum angeben.");
             }
             $contactBuilder->withBirthday($date);
+        }
+        if (isset($parameters[self::TAG_PARAMETER]) && intval($parameters[self::TAG_PARAMETER]) != 0){
+             $contactBuilder->withTag($tagRepository->findById($parameters[self::TAG_PARAMETER]));
         }
         return $contactBuilder->build();
     }

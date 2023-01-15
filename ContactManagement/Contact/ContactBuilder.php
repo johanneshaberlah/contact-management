@@ -4,7 +4,7 @@ namespace ContactManagement;
 
 use DateTime;
 
-require "Contact.php";
+require_once "Contact.php";
 
 final class ContactBuilder {
     private Contact $prototype;
@@ -40,6 +40,11 @@ final class ContactBuilder {
         return $this;
     }
 
+    public function withTag(?Tag $tag): ContactBuilder {
+        $this->prototype = $this->prototype->copyWithTag($tag);
+        return $this;
+    }
+
     public function build(): Contact {
         return $this->prototype;
     }
@@ -53,6 +58,7 @@ final class ContactBuilder {
             Contact::create(
                 null,
                 $name,
+                null,
                 null,
                 null,
                 null

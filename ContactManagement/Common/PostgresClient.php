@@ -4,7 +4,7 @@ namespace ContactManagement\Client;
 
 use PDO;
 
-require "DatabaseCredentials.php";
+require_once "DatabaseCredentials.php";
 
 final class PostgresClient {
     private const CONNECTION_STRING_FORMAT = "pgsql:host=%s;port=%d;dbname=%s;";

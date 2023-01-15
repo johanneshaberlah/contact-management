@@ -14,20 +14,18 @@
             rel="stylesheet">
     </head>
     <?php
-    use ContactManagement\ContactService;
     use ContactManagement\TagService;
 
-    require_once "ContactManagement/ContactService.php";
     require_once "ContactManagement/TagService.php";
 
-    $contactService = ContactService::create();
     $tagService = TagService::create();
-    $tags = $tagService->findAll();
-
     $parameters = $_POST;
-    if (isset($parameters["name"])){
+
+    if (isset($_GET["id"])) {
+        $tag = $tagService->findById($_GET);
+    } else if (isset($parameters["name"])){
         try {
-            $contactService->saveContact($parameters);
+            $tag = $tagService->saveTag($parameters);
             echo "<script>
                       $(document).ready(function(){
                         $('#successCard').removeClass('visually-hidden');
@@ -41,9 +39,6 @@
                       });          
                   </script>";
         }
-    }
-    if (isset($_GET["id"])) {
-        $contact = $contactService->findById($_GET);
     }
     ?>
 
@@ -65,17 +60,16 @@
                 <div class="col-lg-6 col-12">
                     <div id="successCard" class="card successCard visually-hidden">
                         <div class="card-body">
-                            <h5 class="card-title">Der Kontakt wurde gespeichert!</h5>
-                            <p class="card-text">Der Kontakt wurde erfolgreich gespeichert. Kehre nun zurück zur Startseite, bearbeite den Kontakt oder erstelle noch einen.</p>
+                            <h5 class="card-title">Der Tag wurde gespeichert!</h5>
+                            <p class="card-text">Der Tag wurde erfolgreich gespeichert. Kehre nun zurück zur Startseite.</p>
                         </div>
                         <div class="card-footer">
                             <a href="index.php" class="btn">Zurück zur Startseite</a>
-                            <a href="createOrEditContact.php" class="btn">Neuen Kontakt erstellen</a>
                         </div>
                     </div>
                     <div id="errorCard" class="card errorCard visually-hidden">
                         <div class="card-body">
-                            <h5 class="card-title">Der Kontakt konnte nicht gespeichert werden!</h5>
+                            <h5 class="card-title">Der Tag konnte nicht gespeichert werden!</h5>
                             <p class="card-text">Fehlerbeschreibung:
                                 <span id="errorMessage"></span>
                             </p>
@@ -87,66 +81,32 @@
                 <div class="col-lg-6 col-12">
                     <div class="card borderlessCard">
                         <div class="card-header">
-                            <h3 id="formTitle" class="card-title"><?php echo isset($contact) ? "Kontakt ansehen" : "Kontakt anlegen";?></h3>
+                            <h3 id="formTitle" class="card-title"><?php echo isset($tag) ? "Tag ansehen" : "Tag anlegen";?></h3>
                         </div>
                         <div class="card-body">
                             <div class="card-text">
-                                <form id="contactForm" action="createOrEditContact.php<?php echo isset($contact) ? '?id=' . $contact->id() : ''?>" method="POST">
+                                <form id="contactForm" action="createOrEditTag.php" method="POST">
                                     <div class="form-group mb-4">
                                         <input type="hidden" name="id" value="<?php if (isset($_GET["id"])) echo $_GET["id"]; ?>">
                                         <label for="name">Name *</label>
                                         <input
                                                 type="text"
                                                 class="form-control"
-                                                value="<?php if (isset($contact) && $contact != null) echo $contact->name() ?>"
+                                                value="<?php if (isset($tag) && $tag != null) echo $tag->name() ?>"
 ´                                               name="name"
                                                 id="name" required>
                                     </div>
                                     <div class="form-group  mb-4">
-                                        <label for="phone">Telefonnummer</label>
+                                        <label for="color">Farbe *</label>
                                         <input
-                                                type="tel"
-                                                class="form-control"
-                                                value="<?php if (isset($contact) && $contact != null) echo $contact->phone() ?>"
-                                                name="phone"
-                                                id="phone">
+                                                type="color"
+                                                class="form-control form-control-color"
+                                                value="<?php if (isset($tag) && $tag != null) echo $tag->color() ?>"
+                                                name="color"
+                                                id="color"
+                                                required>
                                     </div>
-                                    <div class="form-group  mb-4">
-                                        <label for="mail">Email</label>
-                                        <input
-                                                type="email"
-                                                class="form-control"
-                                                value="<?php if (isset($contact) && $contact != null) echo $contact->mail() ?>"
-´                                               name="mail"
-                                                id="mail">
-                                    </div>
-                                    <div class="form-group  mb-4">
-                                        <label for="birthday">Geburtstag</label>
-                                        <input
-                                                type="date"
-                                                class="form-control"
-                                                value="<?php if (isset($contact) && $contact != null) echo $contact->birthday()?->format("Y-m-d")?>"
-´                                               name="birthday"
-                                                id="birthday"
-                                                pattern="\d{2}\.\d{2}\.\d{4}">
-                                    </div>
-                                    <div class="form-group mb-4">
-                                        <!-- Select input containing all $tags -->
-                                        <label for="tags">Tags</label>
-                                        <select class="form-select" name="tag" id="tag">
-                                            <option value="0">Kein Tag</option>
-                                            <?php
-                                            foreach ($tags as $tag) {
-                                                echo "<option value='".$tag->id()."'";
-                                                if (isset($contact) && $contact != null && $contact->tag() != null && $contact->tag()->id() == $tag->id()) {
-                                                    echo " selected";
-                                                }
-                                                echo ">".$tag->name()."</option>";
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary"><?php echo isset($contact) ? "Speichern" : "Kontakt anlegen";?></button>
+                                    <button type="submit" class="btn btn-primary"><?php echo isset($tag) ? "Speichern" : "Tag anlegen";?></button>
                                 </form>
                             </div>
                         </div>

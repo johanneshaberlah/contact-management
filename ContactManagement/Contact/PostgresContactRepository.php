@@ -8,7 +8,7 @@ use ContactManagement\Contact;
 use ContactManagement\ContactFactory;
 use ContactManagement\Failure\ContactCreationFailure;
 
-require __DIR__. "/../Client/PostgresClient.php";
+require_once __DIR__ . "/../Common/PostgresClient.php";
 
 final class PostgresContactRepository implements ContactRepository {
     private PostgresClient $client;
@@ -20,7 +20,7 @@ final class PostgresContactRepository implements ContactRepository {
         $this->client = $client;
         $this->client->connect();
         $this->client->update(
-            "CREATE TABLE IF NOT EXISTS contacts (id SERIAL PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255), mail VARCHAR(255), birthday DATE);");
+            "CREATE TABLE IF NOT EXISTS contacts (id SERIAL PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255), mail VARCHAR(255), birthday DATE, tag INTEGER REFERENCES tags(id));");
     } //TODO varchar kürzen
 
     /**
@@ -49,19 +49,21 @@ final class PostgresContactRepository implements ContactRepository {
 
     public function save(Contact $contact): Contact {
         if ($contact->id() != null){
-            $this->client->update("UPDATE contacts SET name = ?, phone = ?, mail = ?, birthday = ? WHERE id = ?", [
+            $this->client->update("UPDATE contacts SET name = ?, phone = ?, mail = ?, birthday = ?, tag = ? WHERE id = ?", [
                 $contact->name(),
                 $contact->phone(),
                 $contact->mail(),
-                $contact->birthday()->format("Y-m-d"),
+                $contact->birthday()?->format("Y-m-d"),
+                $contact->tag()?->id(),
                 $contact->id()
             ]);
         } else {
-            $this->client->update("INSERT INTO contacts (name, phone, mail, birthday) VALUES (?, ?, ?, ?)", [
+            $this->client->update("INSERT INTO contacts (name, phone, mail, birthday, tag) VALUES (?, ?, ?, ?, ?)", [
                 $contact->name(),
                 $contact->phone(),
                 $contact->mail(),
-                $contact->birthday()?->format("Y-m-d")
+                $contact->birthday()?->format("Y-m-d"),
+                $contact->tag()?->id()
             ]);
             $contact = $contact->copyWithId($this->client->lastInsertId());
         }

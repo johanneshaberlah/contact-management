@@ -61,20 +61,26 @@
                             <th>Telefonnummer</th>
                             <th>Mail</th>
                             <th>Geburtstag</th>
+                            <th>Tag</th>
                             <th>Aktionen</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
-                        require 'ContactManagement/ContactService.php';
+                        require_once 'ContactManagement/ContactService.php';
                         $contactService = ContactManagement\ContactService::create();
                         $contacts = $contactService->findAll();
                         foreach ($contacts as $contact) {
                             echo "<tr>";
-                            echo "<td>" . $contact->name() . "</td>";
-                            echo "<td>" . $contact->phone() ?? "-" . "</td>";
-                            echo "<td>" . $contact->mail() ?? "-" . "</td>";
+                            echo "<td>" . ($contact->name() ? $contact->name() : "-") . "</td>";
+                            echo "<td>" . ($contact->phone() ? $contact->phone() : "-") . "</td>";
+                            echo "<td>" . ($contact->mail() ? $contact->mail() : "-") . "</td>";
                             echo "<td>" . ($contact->birthday() ? $contact->birthday()->format("d.m.Y") : "-") . "</td>";
+                            if ($contact->tag() != null){
+                                echo "<td><span style='background-color: " . $contact->tag()->color() . " !important' class='badge text-bg-primary'>" . $contact->tag()->name() . "</span></td>";
+                            } else {
+                                echo "<td>-</td>";
+                            }
                             echo "<td><a class='btn btn-primary' href='createOrEditContact.php?id=" . $contact->id() . "'>Anzeigen</a> </td>";
                             echo "</tr>";
                         }
