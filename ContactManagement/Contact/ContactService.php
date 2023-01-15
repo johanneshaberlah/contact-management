@@ -8,9 +8,9 @@ use ContactManagement\Repository\ContactRepository;
 use ContactManagement\Repository\PostgresContactRepository;
 use PDOException;
 
-require_once "Repository/ContactRepository.php";
+require_once "ContactRepository.php";
 require_once "ContactFactory.php";
-require_once "Repository/PostgresContactRepository.php";
+require_once "PostgresContactRepository.php";
 
 final class ContactService {
     private const START_PAGE_CONTACT_LIST_SIZE = 5;

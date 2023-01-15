@@ -6,8 +6,8 @@ use ContactManagement\Failure\ContactCreationFailure;
 use DateTime;
 
 require_once "ContactBuilder.php";
-require_once "PostgresTagRepository.php";
-require_once "Failure/ContactCreationFailure.php";
+require_once  __DIR__ . "/../Tag/PostgresTagRepository.php";
+require_once "ContactCreationFailure.php";
 
 final class ContactFactory {
     private const DATE_FORMAT = "Y-m-d";

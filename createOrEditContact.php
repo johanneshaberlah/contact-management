@@ -17,8 +17,8 @@
     use ContactManagement\ContactService;
     use ContactManagement\TagService;
 
-    require_once "ContactManagement/ContactService.php";
-    require_once "ContactManagement/TagService.php";
+    require_once "ContactManagement/Contact/ContactService.php";
+    require_once "ContactManagement/Tag/TagService.php";
 
     $contactService = ContactService::create();
     $tagService = TagService::create();

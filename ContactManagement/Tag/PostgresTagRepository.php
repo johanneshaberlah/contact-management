@@ -5,7 +5,7 @@ namespace ContactManagement;
 use ContactManagement\Client\DatabaseCredentials;
 use ContactManagement\Client\PostgresClient;
 
-require_once __DIR__ . "/Common/PostgresClient.php";
+require_once __DIR__ . "/../Common/PostgresClient.php";
 require_once "TagRepository.php";
 
 final class PostgresTagRepository implements TagRepository {

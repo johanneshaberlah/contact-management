@@ -16,7 +16,7 @@
     <?php
     use ContactManagement\TagService;
 
-    require_once "ContactManagement/TagService.php";
+    require_once "ContactManagement/Tag/TagService.php";
 
     $tagService = TagService::create();
     $parameters = $_POST;

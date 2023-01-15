@@ -5,7 +5,7 @@ namespace ContactManagement;
 use ContactManagement\Failure\TagCreationFailure;
 
 require_once "TagBuilder.php";
-require_once "Failure/TagCreationFailure.php";
+require_once "TagCreationFailure.php";
 
 final class TagFactory {
     private const ID_PARAMETER = "id";

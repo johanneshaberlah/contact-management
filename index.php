@@ -50,7 +50,7 @@
                                     use ContactManagement\ContactService;
                                     use ContactManagement\Failure\ContactCreationFailure;
 
-                                    require_once "ContactManagement/ContactService.php";
+                                    require_once "ContactManagement/Contact/ContactService.php";
                                     $contactService = ContactService::create();
 
                                     try {

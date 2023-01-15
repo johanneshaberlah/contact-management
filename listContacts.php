@@ -67,7 +67,7 @@
                         </thead>
                         <tbody>
                         <?php
-                        require_once 'ContactManagement/ContactService.php';
+                        require_once 'ContactManagement/Contact/ContactService.php';
                         $contactService = ContactManagement\ContactService::create();
                         $contacts = $contactService->findAll();
                         foreach ($contacts as $contact) {
