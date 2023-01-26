@@ -78,10 +78,19 @@ final class PostgresTagRepository implements TagRepository {
         return TagFactory::fromParameters($firstResult);
     }
 
+    public function deleteById(int $id): void
+    {
+        $this->client->update("UPDATE contacts SET tag = ? WHERE tag = ?", [
+            null,
+            $id
+        ]);
+        $this->client->update("DELETE FROM tags WHERE id = ?", [
+            $id
+        ]);
+    }
+
     public function delete(Tag $tag): void {
-        $this->client->update(
-            sprintf("DELETE FROM tags WHERE id = %d", $tag->id())
-        );
+        $this->deleteById($tag->id());
     }
 
     public static function create(): PostgresTagRepository {

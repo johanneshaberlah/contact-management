@@ -20,8 +20,6 @@
         <link
             href="assets/stylesheets/bootstrap-icons.css"
             rel="stylesheet">
-        <link href="assets/stylesheets/font-awesome.min.css"
-            rel="stylesheet">
     </head>
     <script>
         $(document).ready(function () {
@@ -63,32 +61,28 @@
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Telefonnummer</th>
-                            <th>Mail</th>
-                            <th>Geburtstag</th>
-                            <th>Tag</th>
+                            <th>Farbe</th>
                             <th>Aktionen</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
-                        require_once 'ContactManagement/Contact/ContactService.php';
-                        $contactService = ContactManagement\ContactService::create();
-                        $contacts = $contactService->findAll();
-                        foreach ($contacts as $contact) {
+                        use ContactManagement\TagService;
+
+                        require_once 'ContactManagement/Tag/TagService.php';
+                        $tagService = TagService::create();
+                        $tags = $tagService->findAll();
+                        foreach ($tags as $tag) {
                             echo "<tr>";
-                            echo "<td>" . ($contact->name() ? $contact->name() : "-") . "</td>";
-                            echo "<td>" . ($contact->phone() ? $contact->phone() : "-") . "</td>";
-                            echo "<td>" . ($contact->mail() ? $contact->mail() : "-") . "</td>";
-                            echo "<td>" . ($contact->birthday() ? $contact->birthday()->format("d.m.Y") : "-") . "</td>";
-                            if ($contact->tag() != null){
-                                echo "<td><span style='background-color: " . $contact->tag()->color() . " !important' class='badge text-bg-primary'>" . $contact->tag()->name() . "</span></td>";
+                            echo "<td>" . ($tag->name() ? $tag->name() : "-") . "</td>";
+                            if ($tag->color() != null){
+                                echo "<td><span class='evaluateColor badge text-bg-primary' style='background-color: " . $tag->color() . " !important'>" . $tag->color() . "</span></td>";
                             } else {
                                 echo "<td>-</td>";
                             }
                             echo "<td>
-                                    <a class='btn btn-primary' href='createOrEditContact.php?id=" . $contact->id() . "'>Anzeigen</a>
-                                    <a class='btn btn-danger' href='deleteContact.php?id=" . $contact->id() . "' style='margin-left: 0.5rem' class='btn btn-danger'>Löschen</a>
+                                    <a class='btn btn-primary' href='createOrEditTag.php?id=" . $tag->id() . "'>Anzeigen</a>
+                                    <a class='btn btn-danger' href='deleteTag.php?id=" . $tag->id() . "' style='margin-left: 0.5rem' class='btn btn-danger'>Löschen</a>
                                 </td>";
                             echo "</tr>";
                         }
@@ -107,6 +101,33 @@
                 </div>
             </div>
         </div>
+        <script>
+            function evaluateTextColor(hex) {
+                // Convert hex to RGB
+                var r = parseInt(hex.substring(0,2), 16);
+                var g = parseInt(hex.substring(2,4), 16);
+                var b = parseInt(hex.substring(4,6), 16);
+
+                // Get the perceptive luminance
+                var luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+                // Choose text color based on luminance
+                if (luminance > 0.5) {
+                    return 'black';
+                } else {
+                    return 'white';
+                }
+            }
+
+            $(document).ready(function () {
+                // find all elements with class evaluateColor
+                $('.evaluateColor').each(function () {
+                    var color = $(this).text();
+                    var textColor = evaluateTextColor(color.substring(1));
+                    $(this).attr('style', $(this).attr('style') + '; color: ' + textColor + ' !important');
+                });
+            });
+        </script>
     </body>
 </html>
 

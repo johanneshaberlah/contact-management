@@ -21,9 +21,7 @@
     $tagService = TagService::create();
     $parameters = $_POST;
 
-    if (isset($_GET["id"])) {
-        $tag = $tagService->findById($_GET);
-    } else if (isset($parameters["name"])){
+    if (isset($parameters["name"])){
         try {
             $tag = $tagService->saveTag($parameters);
             echo "<script>
@@ -40,6 +38,9 @@
                   </script>";
         }
     }
+    if (isset($_GET["id"])) {
+        $tag = $tagService->findById($_GET);
+    }
     ?>
 
     <body>
@@ -49,7 +50,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <a href="<?php echo isset($_GET['id']) ? 'listContacts.php' : 'index.php' ?>">
+                    <a href="<?php echo isset($_GET['id']) ? 'listTags.php' : 'index.php' ?>">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#0d6efd" class="bi bi-arrow-left" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                         </svg>
@@ -79,24 +80,29 @@
             </div>
             <div class="row py-3">
                 <div class="col-lg-6 col-12">
-                    <div class="card borderlessCard">
+                    <div class="card borderlessCard shadow">
                         <div class="card-header">
-                            <h3 id="formTitle" class="card-title"><?php echo isset($tag) ? "Tag ansehen" : "Tag anlegen";?></h3>
+                            <h3 id="formTitle"><?php echo isset($tag) ? "Tag ansehen" : "Tag anlegen";?></h3>
                         </div>
                         <div class="card-body">
                             <div class="card-text">
-                                <form id="contactForm" action="createOrEditTag.php" method="POST">
+                                <form id="contactForm" action="createOrEditTag.php<?php echo isset($tag) ? '?id=' . $tag->id() : ''?>" method="POST">
+                                    <input type="hidden" name="id" value="<?php if (isset($_GET["id"])) echo $_GET["id"]; ?>">
                                     <div class="form-group mb-4">
-                                        <input type="hidden" name="id" value="<?php if (isset($_GET["id"])) echo $_GET["id"]; ?>">
-                                        <label for="name">Name *</label>
-                                        <input
-                                                type="text"
-                                                class="form-control"
-                                                value="<?php if (isset($tag) && $tag != null) echo $tag->name() ?>"
-´                                               name="name"
-                                                id="name" required>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">#</div>
+                                            </div>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<?php if (isset($tag) && $tag != null) echo $tag->nameWithoutPrefix() ?>"
+                                                    name="name"
+                                                    placeholder="Name"
+                                                    id="name" required>
+                                        </div>
                                     </div>
-                                    <div class="form-group  mb-4">
+                                    <div class="form-group mb-4">
                                         <label for="color">Farbe *</label>
                                         <input
                                                 type="color"

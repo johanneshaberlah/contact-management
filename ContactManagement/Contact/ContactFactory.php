@@ -18,15 +18,24 @@ final class ContactFactory {
     private const BIRTHDAY_PARAMETER = "birthday";
     private const TAG_PARAMETER = "tag";
 
+    private TagRepository $tagRepository;
+
+    /**
+     * @param TagRepository $tagRepository
+     */
+    private function __construct(TagRepository $tagRepository)
+    {
+        $this->tagRepository = $tagRepository;
+    }
+
+
     /**
      * @param array $parameters
      * @return Contact
      *
      * @throws ContactCreationFailure If values are missing or invalid
      */
-    public static function fromParameters(array $parameters): Contact {
-        $tagRepository = PostgresTagRepository::create();
-
+    public function fromParameters(array $parameters): Contact {
         $name = $parameters[self::NAME_PARAMETER];
         if ($name == null){
             throw ContactCreationFailure::create("Bitte einen Namen angeben.");
@@ -50,8 +59,12 @@ final class ContactFactory {
             $contactBuilder->withBirthday($date);
         }
         if (isset($parameters[self::TAG_PARAMETER]) && intval($parameters[self::TAG_PARAMETER]) != 0){
-             $contactBuilder->withTag($tagRepository->findById($parameters[self::TAG_PARAMETER]));
+             $contactBuilder->withTag($this->tagRepository->findById($parameters[self::TAG_PARAMETER]));
         }
         return $contactBuilder->build();
+    }
+
+    public static function create(TagRepository $tagRepository): ContactFactory {
+        return new ContactFactory($tagRepository);
     }
 }

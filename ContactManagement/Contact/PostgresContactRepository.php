@@ -7,20 +7,24 @@ use ContactManagement\Client\PostgresClient;
 use ContactManagement\Contact;
 use ContactManagement\ContactFactory;
 use ContactManagement\Failure\ContactCreationFailure;
+use ContactManagement\TagRepository;
 
 require_once __DIR__ . "/../Common/PostgresClient.php";
 
 final class PostgresContactRepository implements ContactRepository {
     private PostgresClient $client;
 
+    private ContactFactory $contactFactory;
+
     /**
      * @param PostgresClient $client
      */
-    private function __construct(PostgresClient $client) {
+    private function __construct(PostgresClient $client, TagRepository $tagRepository) {
         $this->client = $client;
         $this->client->connect();
         $this->client->update(
             "CREATE TABLE IF NOT EXISTS contacts (id SERIAL PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255), mail VARCHAR(255), birthday DATE, tag INTEGER REFERENCES tags(id));");
+        $this->contactFactory = ContactFactory::create($tagRepository);
     } //TODO varchar kürzen
 
     /**
@@ -30,7 +34,7 @@ final class PostgresContactRepository implements ContactRepository {
         $contacts = [];
         $results = $this->client->query("SELECT * FROM contacts" . ($limit != null ? " LIMIT $limit" : "") . ";");
         foreach ($results as $result){
-            $contacts[] = ContactFactory::fromParameters($result);
+            $contacts[] = $this->contactFactory->fromParameters($result);
         }
         return $contacts;
     }
@@ -44,7 +48,7 @@ final class PostgresContactRepository implements ContactRepository {
             return null;
         }
         $firstResult = (array) $results[0];
-        return ContactFactory::fromParameters($firstResult);
+        return $this->contactFactory->fromParameters($firstResult);
     }
 
     public function save(Contact $contact): Contact {
@@ -70,15 +74,28 @@ final class PostgresContactRepository implements ContactRepository {
         return $contact;
     }
 
-    public static function of(PostgresClient $client): PostgresContactRepository {
-        return new PostgresContactRepository($client);
+    public static function of(PostgresClient $client, TagRepository $tagRepository): PostgresContactRepository {
+        return new PostgresContactRepository($client, $tagRepository);
     }
 
-    public static function create(): PostgresContactRepository {
+    public static function create(TagRepository $tagRepository): PostgresContactRepository {
         return self::of(
             PostgresClient::create(
-                DatabaseCredentials::fromEnvironment()
-            )
+                DatabaseCredentials::fromEnvironment(),
+            ),
+            $tagRepository
         );
+    }
+
+    public function deleteById(int $id): void
+    {
+        $this->client->update("DELETE FROM contacts WHERE id = ?", [
+            $id
+        ]);
+    }
+
+    public function delete(Contact $contact): void
+    {
+        $this->deleteById($contact->id());
     }
 }

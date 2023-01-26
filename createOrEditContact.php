@@ -85,9 +85,9 @@
             </div>
             <div class="row py-3">
                 <div class="col-lg-6 col-12">
-                    <div class="card borderlessCard">
+                    <div class="card borderlessCard shadow">
                         <div class="card-header">
-                            <h3 id="formTitle" class="card-title"><?php echo isset($contact) ? "Kontakt ansehen" : "Kontakt anlegen";?></h3>
+                            <h3 id="formTitle"><?php echo isset($contact) ? "Kontakt ansehen" : "Kontakt anlegen";?></h3>
                         </div>
                         <div class="card-body">
                             <div class="card-text">

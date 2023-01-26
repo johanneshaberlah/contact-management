@@ -42,6 +42,10 @@ final class TagService {
         return $tag;
     }
 
+    public function deleteById(int $id): void {
+        $this->repository->deleteById($id);
+    }
+
     /**
      * @returns Tag[]
      *

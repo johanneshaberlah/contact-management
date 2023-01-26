@@ -14,10 +14,7 @@
     </head>
     <body>
         <div class="container">
-            <div class="row py-3">
-                <h1>contacty - Die Kontaktverwaltung.</h1>
-            </div>
-            <div class="row py-3">
+           <!-- <div class="row py-3">
                 <div class="col-lg-6 col-12">
                     <div class="card borderlessCard">
                         <div class="card-body">
@@ -29,10 +26,21 @@
                         </div>
                     </div>
                 </div>
+            </div> -->
+            <div class="row py-3">
+                <div class="jumbotron">
+                    <h1 class="display-4">Kontaktverwaltung</h1>
+                    <p class="lead">Bring jetzt Ordnung in deine Bekanntschaften!</p>
+                    <hr class="my-4">
+                    <p class="lead">
+                        <a class="btn btn-primary shadow" href="listContacts.php" role="button">Deine Kontakte</a>
+                        <a class="btn btn-primary shadow" href="createOrEditContact.php" role="button">Kontakt erstellen</a>
+                    </p>
+                </div>
             </div>
             <div class="row py-3">
                 <div class="col-lg-6 col-12">
-                    <div class="card borderlessCard">
+                    <div class="card shadow borderlessCard">
                         <div class="card-body">
                             <h5 class="card-title">Kontaktübersicht</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Hier findest du eine Übersicht einiger Kontakte.</h6>
@@ -54,7 +62,7 @@
                                     $contactService = ContactService::create();
 
                                     try {
-                                        $contacts = $contactService->findAll();
+                                        $contacts = $contactService->randomContacts();
                                         foreach ($contacts as $contact){
                                             echo "<tr>
                                                     <td>" . $contact->name() . "</td>
@@ -69,6 +77,19 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row py-3">
+                <div class="col-lg-6 col-12">
+                    <div class="card borderlessCard shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">Probier doch mal Tags!</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Schnellzugriff</h6>
+                            <p class="card-text">Hier kannst du Tags erstellen oder die deine aktuellen Tags ansehen und bearbeiten. So kannst du deine Kontakte sortieren.</p>
+                            <a href="listTags.php" class="btn btn-primary">Tags</a>
+                            <a href="createOrEditTag.php" class="btn btn-primary">Tag erstellen</a>
                         </div>
                     </div>
                 </div>

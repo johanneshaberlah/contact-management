@@ -14,6 +14,8 @@ interface TagRepository {
 
     public function findByName(string $name): ?Tag;
 
+    public function deleteById(int $id): void;
+
     public function delete(Tag $tag): void;
 
 }

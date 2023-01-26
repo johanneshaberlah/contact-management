@@ -26,6 +26,13 @@ final class Tag {
         return $this->name;
     }
 
+    public function nameWithoutPrefix(): string {
+        if (!str_starts_with($this->name, TagFactory::TAG_PREFIX)) {
+            return $this->name;
+        }
+        return substr($this->name, strlen(TagFactory::TAG_PREFIX));
+    }
+
     public function color(): string {
         return $this->color;
     }
