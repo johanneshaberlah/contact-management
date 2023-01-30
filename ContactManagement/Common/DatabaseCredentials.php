@@ -2,10 +2,14 @@
 
 namespace ContactManagement\Client;
 
+use Exception;
+use http\Exception\RuntimeException;
+
 /**
  * @author Lukas Klein
  */
-final class DatabaseCredentials {
+final class DatabaseCredentials
+{
     private string $host;
     private int $port;
     private string $database;
@@ -21,11 +25,12 @@ final class DatabaseCredentials {
      */
     public function __construct(
         string $host,
-        int $port,
+        int    $port,
         string $database,
         string $username,
         string $password
-    ) {
+    )
+    {
         $this->host = $host;
         $this->port = $port;
         $this->database = $database;
@@ -33,28 +38,34 @@ final class DatabaseCredentials {
         $this->password = $password;
     }
 
-    public function host(): string {
+    public function host(): string
+    {
         return $this->host;
     }
 
-    public function port(): int {
+    public function port(): int
+    {
         return $this->port;
     }
 
-    public function database(): string {
+    public function database(): string
+    {
         return $this->database;
     }
 
-    public function username(): string {
+    public function username(): string
+    {
         return $this->username;
     }
 
-    public function password(): string {
+    public function password(): string
+    {
         return $this->password;
     }
 
-    public static function fromConfiguration(): DatabaseCredentials {
-        $configuration = include_once(__DIR__ . "/../config.php");
+    public static function fromConfiguration(): DatabaseCredentials
+    {
+        $configuration = include(__DIR__ . "/../config.php");
         return new DatabaseCredentials(
             $configuration["DATABASE_HOST"],
             $configuration["DATABASE_PORT"],
