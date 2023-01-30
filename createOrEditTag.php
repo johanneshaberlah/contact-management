@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
     <head>
-      <title>contacty - Kontakt erstellen</title>
+      <title> Kontakt erstellen</title>
         <script src="assets/scripts/jquery-3.6.3.min.js"></script>
         <link
             href="assets/stylesheets/bootstrap.min.css"
@@ -46,7 +46,7 @@
     <body>
         <div class="container">
             <div class="row py-3">
-                <h1>contacty - Die Kontaktverwaltung.</h1>
+                <h1> Kontaktverwaltung</h1>
             </div>
             <div class="row">
                 <div class="col">
@@ -99,6 +99,7 @@
                                                     value="<?php if (isset($tag) && $tag != null) echo $tag->nameWithoutPrefix() ?>"
                                                     name="name"
                                                     placeholder="Name"
+                                                    maxlength="15"
                                                     id="name" required>
                                         </div>
                                     </div>

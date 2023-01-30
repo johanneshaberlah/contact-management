@@ -6,6 +6,9 @@ use DateTime;
 
 require_once "Contact.php";
 
+/**
+ * @author Johannes Haberlah
+ */
 final class ContactBuilder {
     private Contact $prototype;
 

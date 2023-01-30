@@ -2,6 +2,9 @@
 
 namespace ContactManagement\Client;
 
+/**
+ * @author Lukas Klein
+ */
 final class DatabaseCredentials {
     private string $host;
     private int $port;
@@ -50,20 +53,14 @@ final class DatabaseCredentials {
         return $this->password;
     }
 
-    public static function fromEnvironment(): DatabaseCredentials {
-//        return new DatabaseCredentials(
-//            strval(getenv("DB_HOST")),
-//            intval(getenv("DB_PORT")),
-//            strval(getenv("DB_DATABASE")),
-//            strval(getenv("DB_USERNAME")),
-//            strval(getenv("DB_PASSWORD"))
-//        );
+    public static function fromConfiguration(): DatabaseCredentials {
+        $configuration = include_once(__DIR__ . "/../config.php");
         return new DatabaseCredentials(
-            "localhost",
-            5432,
-            "contact_management",
-            "postgres",
-            "postgres"
+            $configuration["DATABASE_HOST"],
+            $configuration["DATABASE_PORT"],
+            $configuration["DATABASE_NAME"],
+            $configuration["DATABASE_USERNAME"],
+            $configuration["DATABASE_PASSWORD"]
         );
     }
 }

@@ -2,7 +2,10 @@
 
 namespace ContactManagement\Failure;
 
-class ContactNotFoundFailure extends \Exception {
+/**
+ * @author Johannes Haberlah
+ */
+final class ContactNotFoundFailure extends \Exception {
     private const MESSAGE_FORMAT = "Der Kontakt konnte nicht gefunden werden: %s";
 
     private function __construct(string $message) {

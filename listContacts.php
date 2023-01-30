@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
     <head>
-      <title>contacty - Kontakt erstellen</title>
+      <title> Kontakt erstellen</title>
         <script src="assets/scripts/jquery-3.6.3.min.js"></script>
         <script src="assets/scripts/jquery.dataTables.min.js"></script>
         <script src="assets/scripts/dataTables.bootstrap5.min.js"></script>
@@ -17,15 +17,10 @@
         <link
             href="assets/stylesheets/style.css"
             rel="stylesheet">
-        <link
-            href="assets/stylesheets/bootstrap-icons.css"
-            rel="stylesheet">
-        <link href="assets/stylesheets/font-awesome.min.css"
-            rel="stylesheet">
     </head>
     <script>
         $(document).ready(function () {
-            $('#example').DataTable({
+            $('#contactTable').DataTable({
                 "language": {
                     "lengthMenu": "Zeige _MENU_ Einträge pro Seite",
                     "zeroRecords": "Es wurden keine Kontakte gefunden.",
@@ -46,7 +41,7 @@
     <body>
         <div class="container">
             <div class="row py-3">
-                <h1>contacty - Die Kontaktverwaltung.</h1>
+                <h1> Kontaktverwaltung</h1>
             </div>
             <div class="row">
                 <div class="col lg-12">
@@ -59,7 +54,7 @@
             </div>
             <div class="row py-3">
                 <div class="col-12">
-                    <table id="example" class="table">
+                    <table id="contactTable" class="table">
                         <thead>
                         <tr>
                             <th>Name</th>
@@ -77,9 +72,9 @@
                         $contacts = $contactService->findAll();
                         foreach ($contacts as $contact) {
                             echo "<tr>";
-                            echo "<td>" . ($contact->name() ? $contact->name() : "-") . "</td>";
+                            echo "<td>" . ($contact->name() ? substr($contact->name(), 0, 32) : "-") . "</td>";
                             echo "<td>" . ($contact->phone() ? $contact->phone() : "-") . "</td>";
-                            echo "<td>" . ($contact->mail() ? $contact->mail() : "-") . "</td>";
+                            echo "<td>" . ($contact->mail() ? substr($contact->mail(), 0, 32) : "-") . "</td>";
                             echo "<td>" . ($contact->birthday() ? $contact->birthday()->format("d.m.Y") : "-") . "</td>";
                             if ($contact->tag() != null){
                                 echo "<td><span style='background-color: " . $contact->tag()->color() . " !important' class='badge text-bg-primary'>" . $contact->tag()->name() . "</span></td>";

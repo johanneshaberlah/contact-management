@@ -2,6 +2,9 @@
 
 namespace ContactManagement;
 
+/**
+ * @author Lukas Klein
+ */
 final class Tag {
     private ?int $id;
     private string $name;

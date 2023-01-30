@@ -9,6 +9,9 @@ require_once "TagRepository.php";
 require_once "TagFactory.php";
 require_once "PostgresTagRepository.php";
 
+/**
+ * @author Lukas Klein
+ */
 final class TagService {
     private TagRepository $repository;
 

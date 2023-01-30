@@ -8,6 +8,9 @@ use ContactManagement\Client\PostgresClient;
 require_once __DIR__ . "/../Common/PostgresClient.php";
 require_once "TagRepository.php";
 
+/**
+ * @author Lukas Klein
+ */
 final class PostgresTagRepository implements TagRepository {
     private PostgresClient $client;
 
@@ -19,8 +22,8 @@ final class PostgresTagRepository implements TagRepository {
         $this->client->update(
             "CREATE TABLE IF NOT EXISTS tags (
                 id SERIAL PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,
-                color VARCHAR(255) NOT NULL
+                name VARCHAR(16) NOT NULL,
+                color VARCHAR(7) NOT NULL
             );"
         );
     }
@@ -96,7 +99,7 @@ final class PostgresTagRepository implements TagRepository {
     public static function create(): PostgresTagRepository {
         return new PostgresTagRepository(
             PostgresClient::create(
-                DatabaseCredentials::fromEnvironment()
+                DatabaseCredentials::fromConfiguration()
             )
         );
     }

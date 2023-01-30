@@ -6,6 +6,9 @@ use PDO;
 
 require_once "DatabaseCredentials.php";
 
+/**
+ * @author Lukas Klein
+ */
 final class PostgresClient {
     private const CONNECTION_STRING_FORMAT = "pgsql:host=%s;port=%d;dbname=%s;";
 

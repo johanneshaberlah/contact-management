@@ -4,6 +4,9 @@ namespace ContactManagement;
 
 use DateTime;
 
+/**
+ * @author Johannes Haberlah
+ */
 final class Contact {
     private ?int $id;
     private string $name;

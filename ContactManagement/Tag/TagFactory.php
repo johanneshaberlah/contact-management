@@ -7,6 +7,9 @@ use ContactManagement\Failure\TagCreationFailure;
 require_once "TagBuilder.php";
 require_once "TagCreationFailure.php";
 
+/**
+ * @author Lukas Klein
+ */
 final class TagFactory {
     public const TAG_PREFIX = "#";
 
@@ -25,12 +28,19 @@ final class TagFactory {
         if (!str_starts_with($name, self::TAG_PREFIX)) {
             $name = self::TAG_PREFIX . $name;
         }
+        if (strlen($name) > 16) {
+            throw TagCreationFailure::create("Der Name ist zu lang.");
+        }
         $tagBuilder = TagBuilder::fromName($name);
         if (isset($parameters[self::ID_PARAMETER])){
             $id = intval($parameters[self::ID_PARAMETER]);
             $tagBuilder = $tagBuilder->withId($id);
         }
-        $tagBuilder->withColor($parameters[self::COLOR_PARAMETER]);
+        $color = $parameters[self::COLOR_PARAMETER];
+        if (strlen($color) > 7) {
+            throw TagCreationFailure::create("Der Farbcode ist zu lang.");
+        }
+        $tagBuilder->withColor($color);
         return $tagBuilder->build();
     }
 }

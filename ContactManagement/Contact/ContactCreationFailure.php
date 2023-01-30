@@ -2,6 +2,9 @@
 
 namespace ContactManagement\Failure;
 
+/**
+ * @author Johannes Haberlah
+ */
 final class ContactCreationFailure extends \Exception {
     private const MESSAGE_FORMAT = "Der Kontakt konnte nicht erstellt werden: %s";
 

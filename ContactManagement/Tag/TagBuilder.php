@@ -4,6 +4,9 @@ namespace ContactManagement;
 
 require_once "Tag.php";
 
+/**
+ * @author Lukas Klein
+ */
 final class TagBuilder {
     private const DEFAULT_COLOR = "#808080";
 

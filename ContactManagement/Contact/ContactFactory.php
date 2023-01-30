@@ -9,6 +9,9 @@ require_once "ContactBuilder.php";
 require_once  __DIR__ . "/../Tag/PostgresTagRepository.php";
 require_once "ContactCreationFailure.php";
 
+/**
+ * @author Johannes Haberlah
+ */
 final class ContactFactory {
     private const DATE_FORMAT = "Y-m-d";
     private const ID_PARAMETER = "id";

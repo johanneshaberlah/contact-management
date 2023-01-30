@@ -2,6 +2,9 @@
 
 namespace ContactManagement\Failure;
 
+/**
+ * @author Lukas Klein
+ */
 final class TagCreationFailure extends \Exception {
     private const MESSAGE_FORMAT = "Der Tag konnte nicht erstellt werden: %s";
 

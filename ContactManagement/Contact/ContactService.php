@@ -12,6 +12,9 @@ require_once "ContactRepository.php";
 require_once "ContactFactory.php";
 require_once "PostgresContactRepository.php";
 
+/**
+ * @author Johannes Haberlah
+ */
 final class ContactService {
     private const START_PAGE_CONTACT_LIST_SIZE = 5;
 

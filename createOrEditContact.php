@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
     <head>
-      <title>contacty - Kontakt erstellen</title>
+      <title> Kontakt erstellen</title>
         <script src="assets/scripts/jquery-3.6.3.min.js"></script>
         <link
             href="assets/stylesheets/bootstrap.min.css"
@@ -50,7 +50,7 @@
     <body>
         <div class="container">
             <div class="row py-3">
-                <h1>contacty - Die Kontaktverwaltung.</h1>
+                <h1> Kontaktverwaltung</h1>
             </div>
             <div class="row">
                 <div class="col">
@@ -100,7 +100,9 @@
                                                 class="form-control"
                                                 value="<?php if (isset($contact) && $contact != null) echo $contact->name() ?>"
 ´                                               name="name"
-                                                id="name" required>
+                                                id="name"
+                                                maxlength="64"
+                                                required>
                                     </div>
                                     <div class="form-group  mb-4">
                                         <label for="phone">Telefonnummer</label>
@@ -109,7 +111,8 @@
                                                 class="form-control"
                                                 value="<?php if (isset($contact) && $contact != null) echo $contact->phone() ?>"
                                                 name="phone"
-                                                id="phone">
+                                                id="phone"
+                                                maxlength="16">
                                     </div>
                                     <div class="form-group  mb-4">
                                         <label for="mail">Email</label>
@@ -118,7 +121,8 @@
                                                 class="form-control"
                                                 value="<?php if (isset($contact) && $contact != null) echo $contact->mail() ?>"
 ´                                               name="mail"
-                                                id="mail">
+                                                id="mail"
+                                                maxlength="64">
                                     </div>
                                     <div class="form-group  mb-4">
                                         <label for="birthday">Geburtstag</label>

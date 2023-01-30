@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
     <head>
-      <title>contacty - Kontakt erstellen</title>
+      <title> Kontakt erstellen</title>
         <script src="assets/scripts/jquery-3.6.3.min.js"></script>
         <script src="assets/scripts/jquery.dataTables.min.js"></script>
         <script src="assets/scripts/dataTables.bootstrap5.min.js"></script>
@@ -17,13 +17,10 @@
         <link
             href="assets/stylesheets/style.css"
             rel="stylesheet">
-        <link
-            href="assets/stylesheets/bootstrap-icons.css"
-            rel="stylesheet">
     </head>
     <script>
         $(document).ready(function () {
-            $('#example').DataTable({
+            $('#tagTable').DataTable({
                 "language": {
                     "lengthMenu": "Zeige _MENU_ Einträge pro Seite",
                     "zeroRecords": "Es wurden keine Kontakte gefunden.",
@@ -44,7 +41,7 @@
     <body>
         <div class="container">
             <div class="row py-3">
-                <h1>contacty - Die Kontaktverwaltung.</h1>
+                <h1> Kontaktverwaltung</h1>
             </div>
             <div class="row">
                 <div class="col lg-12">
@@ -57,7 +54,7 @@
             </div>
             <div class="row py-3">
                 <div class="col-12">
-                    <table id="example" class="table">
+                    <table id="tagTable" class="table">
                         <thead>
                         <tr>
                             <th>Name</th>
@@ -76,7 +73,7 @@
                             echo "<tr>";
                             echo "<td>" . ($tag->name() ? $tag->name() : "-") . "</td>";
                             if ($tag->color() != null){
-                                echo "<td><span class='evaluateColor badge text-bg-primary' style='background-color: " . $tag->color() . " !important'>" . $tag->color() . "</span></td>";
+                                echo "<td><span class='evaluateColor badge' style='background-color: " . $tag->color() . ";'>" . $tag->color() . "</span></td>";
                             } else {
                                 echo "<td>-</td>";
                             }
@@ -103,15 +100,12 @@
         </div>
         <script>
             function evaluateTextColor(hex) {
-                // Convert hex to RGB
-                var r = parseInt(hex.substring(0,2), 16);
-                var g = parseInt(hex.substring(2,4), 16);
-                var b = parseInt(hex.substring(4,6), 16);
+                let r = parseInt(hex.substring(0,2), 16);
+                let g = parseInt(hex.substring(2,4), 16);
+                let b = parseInt(hex.substring(4,6), 16);
 
-                // Get the perceptive luminance
-                var luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+                let luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
 
-                // Choose text color based on luminance
                 if (luminance > 0.5) {
                     return 'black';
                 } else {
@@ -122,9 +116,9 @@
             $(document).ready(function () {
                 // find all elements with class evaluateColor
                 $('.evaluateColor').each(function () {
-                    var color = $(this).text();
-                    var textColor = evaluateTextColor(color.substring(1));
-                    $(this).attr('style', $(this).attr('style') + '; color: ' + textColor + ' !important');
+                    let color = $(this).text();
+                    let textColor = evaluateTextColor(color.substring(1));
+                    $(this).attr('style', $(this).attr('style') + '; color: ' + textColor + ';');
                 });
             });
         </script>

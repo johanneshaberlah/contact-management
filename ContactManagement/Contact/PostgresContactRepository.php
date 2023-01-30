@@ -11,6 +11,9 @@ use ContactManagement\TagRepository;
 
 require_once __DIR__ . "/../Common/PostgresClient.php";
 
+/**
+ * @author Johannes Haberlah
+ */
 final class PostgresContactRepository implements ContactRepository {
     private PostgresClient $client;
 
@@ -23,7 +26,7 @@ final class PostgresContactRepository implements ContactRepository {
         $this->client = $client;
         $this->client->connect();
         $this->client->update(
-            "CREATE TABLE IF NOT EXISTS contacts (id SERIAL PRIMARY KEY, name VARCHAR(255), phone VARCHAR(255), mail VARCHAR(255), birthday DATE, tag INTEGER REFERENCES tags(id));");
+            "CREATE TABLE IF NOT EXISTS contacts (id SERIAL PRIMARY KEY, name VARCHAR(64), phone VARCHAR(16), mail VARCHAR(64), birthday DATE, tag INTEGER REFERENCES tags(id));");
         $this->contactFactory = ContactFactory::create($tagRepository);
     } //TODO varchar kürzen
 
@@ -81,7 +84,7 @@ final class PostgresContactRepository implements ContactRepository {
     public static function create(TagRepository $tagRepository): PostgresContactRepository {
         return self::of(
             PostgresClient::create(
-                DatabaseCredentials::fromEnvironment(),
+                DatabaseCredentials::fromConfiguration(),
             ),
             $tagRepository
         );

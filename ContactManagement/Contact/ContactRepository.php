@@ -4,6 +4,9 @@ namespace ContactManagement\Repository;
 
 use ContactManagement\Contact;
 
+/**
+ * @author Johannes Haberlah
+ */
 interface ContactRepository {
 
     // Create / Update

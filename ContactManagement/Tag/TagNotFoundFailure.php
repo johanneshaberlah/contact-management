@@ -2,6 +2,9 @@
 
 namespace ContactManagement\Failure;
 
+/**
+ * @author Lukas Klein
+ */
 class TagNotFoundFailure extends \Exception {
     private const MESSAGE_FORMAT = "Der Tag konnte nicht gefunden werden: %s";
 

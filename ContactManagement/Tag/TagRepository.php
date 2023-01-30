@@ -4,6 +4,9 @@ namespace ContactManagement;
 
 require_once "Tag.php";
 
+/**
+ * @author Lukas Klein
+ */
 interface TagRepository {
 
     public function save(Tag $tag): Tag;
