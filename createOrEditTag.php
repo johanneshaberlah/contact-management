@@ -87,7 +87,7 @@
                         <div class="card-body">
                             <div class="card-text">
                                 <form id="contactForm" action="createOrEditTag.php<?php echo isset($tag) ? '?id=' . $tag->id() : ''?>" method="POST">
-                                    <input type="hidden" name="id" value="<?php if (isset($_GET["id"])) echo $_GET["id"]; ?>">
+                                    <input type="hidden" name="id" value="<?php if (isset($tag) && $tag != null) echo $tag->id() ?>">
                                     <div class="form-group mb-4">
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
