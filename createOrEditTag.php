@@ -123,7 +123,6 @@
             <div class="row py-5 pt-5">
                 <div class="col-12">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Quellenangabe</li>
                         <li class="list-group-item">Impressum</li>
                         <li class="list-group-item">Datenschutzerklärung</li>
                     </ul>

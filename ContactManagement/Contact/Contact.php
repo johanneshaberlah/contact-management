@@ -16,7 +16,7 @@ final class Contact {
     private ?Tag $tag;
 
     /**
-     * @param ?int $id
+     * @param ?int $id Primary key of the contact
      * @param string $name The name of the contact containing the firstname and/or lastname
      * @param ?string $phone The phone number of the contact without spaces
      * @param ?string $mail The validated mail address of the contact

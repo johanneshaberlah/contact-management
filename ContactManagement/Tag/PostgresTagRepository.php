@@ -4,6 +4,7 @@ namespace ContactManagement;
 
 use ContactManagement\Client\DatabaseCredentials;
 use ContactManagement\Client\PostgresClient;
+use ContactManagement\Failure\TagCreationFailure;
 
 require_once __DIR__ . "/../Common/PostgresClient.php";
 require_once "TagRepository.php";
@@ -46,6 +47,9 @@ final class PostgresTagRepository implements TagRepository {
         return $tag;
     }
 
+    /**
+     * @throws TagCreationFailure
+     */
     public function findById(int $id): ?Tag {
         $results = $this->client->query(
             sprintf("SELECT * FROM tags WHERE id = %d", $id)
@@ -54,13 +58,12 @@ final class PostgresTagRepository implements TagRepository {
             return null;
         }
         $firstResult = (array) $results[0];
-        return Tag::create(
-            $firstResult["id"],
-            $firstResult["name"],
-            $firstResult["color"]
-        );
+        return TagFactory::fromParameters($firstResult);
     }
 
+    /**
+     * @throws TagCreationFailure
+     */
     public function findAll(): array {
         $tags = [];
         $results = $this->client->query("SELECT * FROM tags");
@@ -70,6 +73,9 @@ final class PostgresTagRepository implements TagRepository {
         return $tags;
     }
 
+    /**
+     * @throws TagCreationFailure
+     */
     public function findByName(string $name): ?Tag {
         $results = $this->client->query(
             sprintf("SELECT * FROM tags WHERE name = '%s'", $name)
