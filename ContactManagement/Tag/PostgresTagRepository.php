@@ -58,7 +58,11 @@ final class PostgresTagRepository implements TagRepository {
             return null;
         }
         $firstResult = (array) $results[0];
-        return TagFactory::fromParameters($firstResult);
+        return Tag::create(
+            $firstResult["id"],
+            $firstResult["name"],
+            $firstResult["color"]
+        );
     }
 
     /**
